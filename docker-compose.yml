@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  chargendrs:
+    image: ghcr.io/yanorei32/chargend-rs:v0.1.0
+    hostname: chargendrs
+    container_name: chargendrs__chargendrs
+
+    restart: unless-stopped
+
+    volumes:
+      - type: bind
+        source: ./chargen.txt
+        target: /etc/chargen.txt
+        read_only: true
+
+    ports:
+      - "19:19"
+
+    networks:
+      - default
+
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+
+networks:
+  default:
+    name: chargendrs__default
